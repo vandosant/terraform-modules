@@ -8,7 +8,7 @@ resource "aws_key_pair" "auth" {
 }
 
 resource "aws_instance" "deep-learning" {
-  ami = "ami-31ecfb26"
+  ami = "${var.amis["fastai-part1v2-p2"]}"
   instance_type = "p2.xlarge"
   associate_public_ip_address = "true"
   subnet_id = "subnet-19105044"
@@ -22,7 +22,8 @@ resource "aws_instance" "deep-learning" {
 
   provisioner "remote-exec" {
     inline = [
-      "echo ${aws_instance.deep-learning.public_ip} > ip_address.txt",
+      "pip install kaggle-cli",
+      "cd fastai",
       "git pull",
       "conda env update"
     ]
