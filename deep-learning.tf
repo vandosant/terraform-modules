@@ -22,10 +22,11 @@ resource "aws_instance" "deep-learning" {
 
   provisioner "remote-exec" {
     inline = [
-      "pip install kaggle-cli",
       "cd fastai",
       "git pull",
-      "conda env update"
+      "conda env update",
+      "apt install unzip",
+      "pip install kaggle"
     ]
   }
 }
